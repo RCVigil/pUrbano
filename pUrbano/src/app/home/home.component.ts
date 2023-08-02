@@ -6,7 +6,7 @@ import { Oferta } from '../shared/oferta.model';
   selector: 'pUrb-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
-  providers: [OfertasService ],
+  providers: [ OfertasService ],
 })
 export class HomeComponent implements OnInit {
   ofertas: Oferta[] = [];
@@ -14,7 +14,8 @@ export class HomeComponent implements OnInit {
   constructor(private ofertasService: OfertasService) {}
 
   ngOnInit(): void {
-    this.ofertas = this.ofertasService.getOfertas();
-    console.log(this.ofertas);
+    this.ofertasService.getOfertas()
+      .then((ofertas: Oferta[]) => this.ofertas = ofertas)
+      .catch((param:any) => console.log(param))
   }
 }

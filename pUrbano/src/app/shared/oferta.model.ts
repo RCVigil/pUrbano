@@ -6,7 +6,7 @@ export class Oferta {
   public anunciante: string;
   public valor: number;
   public destaque: boolean;
-  public imagens: object[];
+  public imagens: {url: string}[];
 
   constructor() {
     this.id = 0;
