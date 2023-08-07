@@ -22,6 +22,16 @@ export class OfertasService {
       .catch(this.handleError);
   }
 
+  public getOfertasPorId(id: number): Promise<Oferta> {
+    return this.http
+      .get<any>(`http://localhost:3000/ofertas?id=${id}`)
+      .toPromise() // Converter o Observable em uma Promise
+      .then((resposta: any) => {
+        return resposta[0] as Oferta;
+      })
+      .catch(this.handleError);
+  }
+
   private handleError(error: any): Promise<any> {
     console.error('Ocorreu um erro:', error);
     return Promise.reject(error.message || error);
