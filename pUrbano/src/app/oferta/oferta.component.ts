@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { OfertasService } from '../ofertas.service';
 import { Oferta } from '../shared/oferta.model';
@@ -9,7 +9,7 @@ import { Oferta } from '../shared/oferta.model';
   styleUrls: ['./oferta.component.css'],
   providers: [OfertasService],
 })
-export class OfertaComponent {
+export class OfertaComponent implements OnInit, OnDestroy {
   oferta!: Oferta;
   constructor(
     private route: ActivatedRoute,
@@ -18,8 +18,6 @@ export class OfertaComponent {
 
   ngOnInit() {
     const ofertaId = +this.route.snapshot.params['id'];
-
-    console.log('Oferta ID:', ofertaId);
 
     this.ofertasService
       .getOfertasPorId(ofertaId)
@@ -35,4 +33,6 @@ export class OfertaComponent {
         console.error('Erro ao buscar a oferta:', error);
       });
   }
+
+  ngOnDestroy(): void {}
 }

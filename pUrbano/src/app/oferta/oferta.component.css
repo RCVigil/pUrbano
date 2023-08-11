@@ -21,3 +21,12 @@ h1 {
     margin-right: 10px;
     margin-bottom: 10px;
 }
+
+.navOfertaFooter {
+  margin: 2rem 0 4rem 0;
+}
+
+.textOfertaFooter {
+  margin: 2rem 0;
+  font-size: 2vh;
+}

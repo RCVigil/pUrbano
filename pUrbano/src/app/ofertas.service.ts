@@ -1,14 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Oferta } from './shared/oferta.model';
 import { HttpClient } from '@angular/common/http';
+import { URL_API } from './app.api';
 
 @Injectable()
 export class OfertasService {
   constructor(private http: HttpClient) {}
 
+  // private url_api = 'http://localhost:3000/ofertas';
+
   public getOfertas(): Promise<Oferta[]> {
     return this.http
-      .get<any[]>('http://localhost:3000/ofertas?destaque=true')
+      .get<any[]>(`${URL_API}/ofertas?destaque=true`)
       .toPromise() // Converter o Observable em uma Promise
       .then((resposta: any) => resposta as Oferta[])
       .catch(this.handleError);
@@ -16,7 +19,7 @@ export class OfertasService {
 
   public getOfertasPorCategoria(categoria: string): Promise<Oferta[]> {
     return this.http
-      .get<any[]>(`http://localhost:3000/ofertas?categoria=${categoria}`)
+      .get<any[]>(`${URL_API}/ofertas?categoria=${categoria}`)
       .toPromise() // Converter o Observable em uma Promise
       .then((resposta: any) => resposta as Oferta[])
       .catch(this.handleError);
@@ -24,10 +27,30 @@ export class OfertasService {
 
   public getOfertasPorId(id: number): Promise<Oferta> {
     return this.http
-      .get<any>(`http://localhost:3000/ofertas?id=${id}`)
+      .get<any>(`${URL_API}/ofertas?id=${id}`)
       .toPromise() // Converter o Observable em uma Promise
       .then((resposta: any) => {
         return resposta[0] as Oferta;
+      })
+      .catch(this.handleError);
+  }
+
+  public getComoUsarOfertasPorId(id: number): Promise<Oferta> {
+    return this.http
+      .get<any>(`${URL_API}/como-usar?id=${id}`)
+      .toPromise() // Converter o Observable em uma Promise
+      .then((resposta: any) => {
+        return resposta[0].descricao as Oferta;
+      })
+      .catch(this.handleError);
+  }
+
+  public getOndeFicaOfertasPorId(id: number): Promise<Oferta> {
+    return this.http
+      .get<any>(`${URL_API}/onde-fica?id=${id}`)
+      .toPromise() // Converter o Observable em uma Promise
+      .then((resposta: any) => {
+        return resposta[0].descricao as Oferta;
       })
       .catch(this.handleError);
   }
